@@ -58,9 +58,11 @@ NameError: name 'UltiSnips_Manager' is not defined
 
 ---
 
-在 git 时候，如果只是改动了一小部分，暂时忽略掉 `register.js` `register.js.map` 相关的修改。
+对于 `webpack` 打包好的文件，
+在 开发的时候，如果只是改动了一小部分，
+`Git` 相关可以暂时忽略掉 `register.js` `register.js.map` 相关的修改。
 
-否则，git rebase 简直...
+否则，`git rebase` 简直...
 
 ---
 
