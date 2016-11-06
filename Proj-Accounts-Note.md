@@ -104,7 +104,7 @@ ref:
 `window.postMessage`  `window.top`
 
 *note*:
-  框架之间的通信方式
+  补充：框架之间的通信方式
 
 Debug postMessage devTools keeping crash:
 
