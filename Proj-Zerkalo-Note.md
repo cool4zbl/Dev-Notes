@@ -1,8 +1,8 @@
-#### Subject Review review
+### Subject Review review
 
 ---
 
-##### JavaScript
+#### JavaScript
 
 - UI 逻辑与应用逻辑拆分开 Splitting the code into UI logic and Application logic.
 
@@ -239,22 +239,26 @@
 
 ---
 
-##### CSS
+#### CSS
 
 - `overflow: hidden` 上下对齐 问题。
+  强制设置父元素的 `overflow: hidden` 以后，子元素自动对齐了。
+  Why?
 
-- `img { max-width: 100%; }`  overrides `width` property. & global is dangerous. 会使 img 尽最大限度填充父元素；
+- `img { max-width: 100%; }` overrides `width` property. & global is dangerous. 会使 img 尽最大限度填充父元素；
 
 - `:not(selector)`  selector 不能是 ID selector.
 
-- ```CSS
-  ::-webkit-input-placeholder {
-    color: $plhdColor;
-    font-size: $fz;
-  }
+- Modify input placeholder
+
+  ```CSS
+    ::-webkit-input-placeholder {
+      color: $plhdColor;
+      font-size: $fz;
+    }
   ```
 
-- [Textarea placeholder Not disappering](http://stackoverflow.com/questions/10186913/html5-textarea-placeholder-not-appearing) & [Textarea tricks](https://css-tricks.com/textarea-tricks/)
+  - [Textarea placeholder Not disappering](http://stackoverflow.com/questions/10186913/html5-textarea-placeholder-not-appearing) & [Textarea tricks](https://css-tricks.com/textarea-tricks/)
 
 - 移动端 Tab 时候闪烁 `-webkit-tab-highlight: none;`
 
