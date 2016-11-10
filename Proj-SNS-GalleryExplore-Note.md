@@ -51,8 +51,6 @@
 }
 ```
 
-
-
-
-
+#### Reference
+- [Simplitify Flexbox Cheat Sheet](http://www.sketchingwithcss.com/samplechapter/cheatsheet.html)
 
