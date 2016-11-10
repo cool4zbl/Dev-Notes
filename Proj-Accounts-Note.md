@@ -78,7 +78,7 @@ NameError: name 'UltiSnips_Manager' is not defined
 - CSS className
   - 默认`-`， e.g.: `flag-wrapper`；
   - `_` ，如果是可能需要用到 Python 和 JS 操作的，使用`_` ，e.g.:`vote_useful / vote_useless`
-- JS Variable name: 
+- JS Variable name:
   - 默认 `camelCase`
 
 
@@ -113,4 +113,17 @@ Debug postMessage devTools keeping crash:
 [Chrome Forum](https://productforums.google.com/forum/#!topic/chrome/RgxarClMbOM)
 
 
+---
 
+#### TDD Testing with Mocha, chai, sinon & Enzyme
+
+- Mocking a userAgent in JS
+http://stackoverflow.com/questions/1307013/mocking-a-useragent-in-javascript
+
+```javascript
+navigator.__defineGetter__('userAgent', function () {
+  return 'foobar' // customized user agent
+})
+
+navigator.userAgent  // 'foobar'
+```
