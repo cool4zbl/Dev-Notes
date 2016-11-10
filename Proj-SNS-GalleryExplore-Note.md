@@ -20,19 +20,29 @@
 ```CSS
 @mixin flexbox() {
   display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
   display: flex;
-
 }
 
 @mixin flex($val) {
-
+  display: inline-block; //  compatible to IE 9+
+  -webkit-flex: $val;
+  -moz-flex: $val;
+  -ms-flex: $val;
+  -o-flex: $val;
+  flex: $val;
 }
 
 /* container */
 .flexcontainer {
   @include flexbox();
+
   -webkit-flex-direction: row;
   -webkit-flex-flow: nowrap;
+
+
+  // or just one line short-hand
   flex: row nowrap;
 }
 /* item */
