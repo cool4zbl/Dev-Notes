@@ -28,7 +28,7 @@
       break
     case 'complete':
       // The page is full loaded.
-    	console.log('The first CSS Rule is :' + 
+    	console.log('The first CSS Rule is :' +
                   document.styleSheets[0].cssRules[0].cssText)
       break
   }
@@ -50,7 +50,7 @@
   document.onreadystatechange = function () {
     if (document.readyState === 'complete') {
       initApplication()
-    }  
+    }
   }
   ```
 
@@ -72,7 +72,7 @@
         if (document.readyState === 'complete') {
           init()
         }
-        return typeof _onreadystatechange === 'function' ? 
+        return typeof _onreadystatechange === 'function' ?
           _onreadystatechange.apply(null, arguments) : void 0
       }
     }
@@ -87,7 +87,7 @@
   }).call(this)
   ```
 
-- `createHTMLDocument(docName)`  vs `createElement(tagName)`  
+- `createHTMLDocument(docName)`  vs `createElement(tagName)`
 
   - Safety ? Difference? Pros & Cons ?
   - Event Handler 区别？
@@ -106,7 +106,7 @@
   var returnFragmentNode = document.createDocumentFragment.call(body.ownerDocument)
   ```
 
-- Considering `document.createDocumentFragement()` 
+- Considering `document.createDocumentFragement()`
 
   - lightweight container may better.
   - store the nodes while improving the performance of insertion.
@@ -136,11 +136,11 @@
   - [Ruanyifeng](http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html)
   - [TutPlus](http://code.tutsplus.com/tutorials/source-maps-101--net-29173)
 
-- `MutationObserver` 
+- `MutationObserver`
 
   - [WHTAWG Spec Doc](https://dom.spec.whatwg.org/#mutation-observers)
 
-- Fragment # Hash 
+- Fragment # Hash
 
   ```javascript
   // 有 `#` 的请求，`#` 后的内容最终不会发出去。
@@ -203,7 +203,7 @@
 
   http://perfectionkills.com/global-eval-what-are-the-options/
 
-- `Object.assign` & `Object.create` ? Perf ? 
+- `Object.assign` & `Object.create` ? Perf ?
 
 - **跨域 jQuery 请求**
 
@@ -211,7 +211,7 @@
   $.ajax({
       xhrFields: {
        // for sent request with cookie
-       withCredentials: true  
+       withCredentials: true
       }
   })
   // Request will not sent if not config like this.
@@ -260,7 +260,12 @@
 
   - [Textarea placeholder Not disappering](http://stackoverflow.com/questions/10186913/html5-textarea-placeholder-not-appearing) & [Textarea tricks](https://css-tricks.com/textarea-tricks/)
 
-- 移动端 Tab 时候闪烁 `-webkit-tab-highlight: none;`
+- 移动端 Tab 时候闪烁, 关闭浏览器默认 tab 高亮样式：
+  `-webkit-tab-highlight: none;`
+
+- 扩大可点击区域 Extending the clickable area.
+> pseudo-elements also capture mouse interaction for their parent element.
+合理使用伪元素。
 
 ---
 
