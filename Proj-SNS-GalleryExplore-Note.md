@@ -3,7 +3,7 @@
 ---
 
 - 需求：增加一个发现更多话题的入口，设计上采用网格布局
-- PR: https://github.intra.douban.com/sns/sns/pull/783 
+- PR: https://github.intra.douban.com/sns/sns/pull/783
 - URL: https://www.douban.com/gallery/explore[?column_id=xxx]
 
 #### CSS
@@ -51,6 +51,13 @@
 }
 ```
 
+---
+TODO:
+add fake flexbox to fix align
+
+
+
 #### Reference
 - [Simplitify Flexbox Cheat Sheet](http://www.sketchingwithcss.com/samplechapter/cheatsheet.html)
+
 
