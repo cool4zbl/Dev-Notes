@@ -33,5 +33,14 @@
 
 ---
 
+### JS
+- Constructor Inheritance or Prototype Inheritance ?
+
+- 如果一个元素同时被各种事件绑定，事件绑定触发的顺序是？
+
+
+---
+
 ### BUGS
 - DAE `*.es6` 编译调试时候出现语法错误不会报错！！！
+
