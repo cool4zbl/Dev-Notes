@@ -33,14 +33,25 @@
 
 ---
 
+### CSS
+- 因为基本是 include 各种现有的模板，但是不改变它们原有的交互，所以这里重新写样式来达到设计稿的要求；
+- 感慨就是 CSS 很强大；
+- 嵌套层级复用；
+- CSS 优先级的斗争；
+- `position: absolute;` 完美运用;
+
+---
+
 ### JS
 - Constructor Inheritance or Prototype Inheritance ?
 
-- 如果一个元素同时被各种事件绑定，事件绑定触发的顺序是？
+- Think: 如果一个元素同时被各种事件绑定，事件绑定触发的顺序是？
 
 - 动态 textarea 字数统计：
   - 使用 ES6 模板 render, 但是需要之后手动 init，及绑定 `keyup` `input` 等事件来每次更新值
   - 试试 VisualDOM ?
+
+- `new ReshareDialog()`
 
 
 ---
