@@ -1,4 +1,4 @@
-### SNS Reshared Status with copy
+### SNS Status Redesign & Reshared Status with copy
 
 ---
 
@@ -80,11 +80,46 @@
 -  fix 点击转播内的链接正确跳转，而不是跳转到广播 url
 -  转播成功加提示 关闭当前 dialog，涉及到 setTimeout 的 this 绑定问题。使用 () => {} 闭包解决
 -  @人，
--  增加 #话题# 
--  tagsug  插件 
+-  增加 #话题#
+-  tagsug  插件
 -  展开相似广播 prevAll() 会不会展开不属于该作者的隐藏广播？(我觉得会…）
 -  如果 query str 在 # hash 后面会不起作用
--  恢复 grammarly 插件)"
+
+- Loading 以及 一些 toast 动画使用 SVG
+```CSS
+// Background + Data URIs
+$loadingSVG: 'data:image/svg+xml;utf8, <svg>...</svg>'
+.loading {
+background-image: url($loadingSVG)
+background-size: 20px;
+background-position: 0 50%;
+}
+```
+> 这里的Sprite技术，类似于CSS中的Sprite技术。图标图形整合在一起，实际呈现的时候准确显示特定图标。其实基础的SVG Sprite也只是将原来的位图改成了SVG而已，控制SVG大小、颜色需要重新合并SVG文件。
+
+-  使用 Sprite 可以认为加了一张普通背景图片, 可以修改 size / position 等
+- 如果需要加载很多不同的 SVG 图的话，可以使用 `symbol/defs` `use` 来制作 SVG Sprite.
+- 新方案：[Svg Sprites +Png Sprites + Image-Set](https://jarevrygo.gitbooks.io/webbook/content/5-2-1svgli_jie_yu_yun_yong.html)
+
+- Animation: 打开和关闭转播 dialog 时候增加渐入渐出效果
+```CSS
+// Simple fadein & fadeout
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.fadein {
+  animation: fadeIn .5s ease-in;
+}
+.fadeout {
+  animation: fadeOut 1.5s ease-out;
+}
+```
+- 关于 UI 动画一篇不错的 Keynote [The Art of UI Animation](http://markgeyer.com/pres/the-art-of-ui-animations)
 
 ### BUGS
 - DAE `*.es6` 编译调试时候出现语法错误不会报错！！！
