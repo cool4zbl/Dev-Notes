@@ -67,21 +67,29 @@
 -  dialog 里推荐网页去掉动作
 -  第一次转播单纯的说 都去掉描边
 -  修转播回应框
--  修转播广播点击区域跳转
--  chrome 打开 dialog hd 的高度有 bug ?自动出现滚动条 overflow ?
--  发布成功 disabled btn 防止连击 beforeSend() 前 disable submit btn
--  throttle ? debounce ? Debounce／throttle／buffer等这些与时间相关的操作
--  文字排版 white-space: pre-wrap; 超出了四行的话需要去掉，小于这个字数再加上。
--  计算每次转播文字的长度，算出对应的高度，计算 原始广播顶端负边距 line0 line1 …. line7
 -  ajax 回应 DOM reflow + repaint 每次重新计算位置；使用 pos: abs 来定位。
 -  转播时候，点击回应，再查看带图片广播会定位出现问题。需要重新计算高度。height: auto;  啊啊啊，只能直接缩小图片了。带回应时候小图，大图时候隐藏回应。
+- 这样的话，其实每次点击「隐藏回应」「显示回应」「查看/缩小图片」都会进行一次回流和重绘（Reflow & Repaint）[减少页面 Reflow & Repaint](http://harttle.com/2015/08/11/reflow-repaint.html)
+- [What forces layout / reflow - Paul Irish](https://gist.github.com/paulirish/5d52fb081b3570c81e3a)
+- [Rendering: repaint, reflow/relayout, restyle - Stoyan](http://www.phpied.com/rendering-repaint-reflowrelayout-restyle/)
+
+-  修转播广播点击区域跳转 判断 `$(e.target).is('img')` `$(e.target).is('a')` 来根据点击区域进行跳转。这里注意如果原始广播内有 a 链接的时候注意不要 `e.preventDefault()` 而是默认跳转到对应链接
+
+-  chrome 打开 dialog hd 的高度有 bug ?自动出现滚动条 overflow ?
+
+-  发布成功 disabled btn 防止连击 beforeSend() 前 disable submit btn
+-  throttle ? debounce ? Debounce／throttle／buffer等这些与时间相关的操作
+
+-  文字排版 white-space: pre-wrap; 超出了四行的话需要去掉，小于这个字数再加上。
+
+-  计算每次转播文字的长度，算出对应的高度，计算 原始广播顶端负边距 line0 line1 …. line7
 -  只在广播流！不在 detail page !
--  celebrity.html blockquote 改位置
--  fix 点击转播内的链接正确跳转，而不是跳转到广播 url
+
 -  转播成功加提示 关闭当前 dialog，涉及到 setTimeout 的 this 绑定问题。使用 () => {} 闭包解决
+
 -  @人，
--  增加 #话题#
 -  tagsug  插件
+-  增加 #话题#
 -  展开相似广播 prevAll() 会不会展开不属于该作者的隐藏广播？(我觉得会…）
 -  如果 query str 在 # hash 后面会不起作用
 
@@ -120,6 +128,7 @@ background-position: 0 50%;
 }
 ```
 - 关于 UI 动画一篇不错的 Keynote [The Art of UI Animation](http://markgeyer.com/pres/the-art-of-ui-animations)
+
 
 ### BUGS
 - DAE `*.es6` 编译调试时候出现语法错误不会报错！！！
