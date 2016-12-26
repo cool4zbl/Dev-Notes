@@ -39,6 +39,9 @@
 - 嵌套层级复用；
 - CSS 优先级的斗争；
 - `position: relative;` `position: absolute;` 完美运用;
+- 新转播广播上线后，发现用手机端(iOS Safari)浏览 WWW 站时候出现转播广播文字叠字 bug，因为 margin 过小，一开始并不知道原因，后来发现是因为没有设置 `-webkit-text-size-adjust`，而转播广播上下 margin 使用 `em` 单位计算，之前历史遗留问题，广播各个模块设置了自己独立的 `font-size`，所以每处地方的 margin 都不一样，所以出现了叠字。强制设定 `-webkit-text-size-adjust: 100%;` 后解决了手机浏览器打开 WWW 的文字缩放问题。
+- [CanIUse text-size-adjust](http://caniuse.com/#search=text-size-adjust)
+- [text-size-adjust W3C Spec](https://drafts.csswg.org/css-size-adjust/#adjustment-control)
 
 ---
 
