@@ -3,8 +3,11 @@
 ---
 
 - 需求：
+  转播广播加文字
 - PR:
+
 - URL:
+  Web 主站
 
 ---
 
@@ -134,6 +137,12 @@ background-position: 0 50%;
 - [text-size-adjust W3C Spec](https://drafts.csswg.org/css-size-adjust/#adjustment-control)
 
 ---
+
+---
+### 后续的更新和维护
+- 转播框精简
+- 隐藏不带文字的转播
+- 代码优化
 
 ### BUGS
 - DAE `*.es6` 编译调试时候出现语法错误不会报错！！！
