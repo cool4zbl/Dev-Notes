@@ -155,6 +155,7 @@ background-position: 0 50%;
 }
 ```
 看来 `overflow: hidden;` 结合 `:after { display: inline-block; }` 可以再深入学习下相关应用场景；
+- [Quirksmode css display](http://quirksmode.org/css/css2/display.html)
 
 - 新转播广播上线后，发现用手机端(iOS Safari)浏览 WWW 站时候出现转播广播文字叠字 bug，因为 margin 过小，一开始并不知道原因，后来发现是因为没有设置 `-webkit-text-size-adjust`，而转播广播上下 margin 使用 `em` 单位计算，之前历史遗留问题，广播各个模块设置了自己独立的 `font-size`，所以每处地方的 margin 都不一样，所以出现了叠字。强制设定 `-webkit-text-size-adjust: 100%;` 后解决了手机浏览器打开 WWW 的文字缩放问题。
 - [Can I Use text-size-adjust](http://caniuse.com/#search=text-size-adjust)
