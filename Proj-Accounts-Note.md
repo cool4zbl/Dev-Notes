@@ -127,3 +127,7 @@ navigator.__defineGetter__('userAgent', function () {
 
 navigator.userAgent  // 'foobar'
 ```
+
+- >Consider marking event handler as 'passive' to make the page more responsive.
+
+关于 passive event handler [Official Explanation](https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md)
