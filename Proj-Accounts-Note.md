@@ -128,6 +128,30 @@ navigator.__defineGetter__('userAgent', function () {
 navigator.userAgent  // 'foobar'
 ```
 
+---
 - >Consider marking event handler as 'passive' to make the page more responsive.
 
 关于 passive event handler [Official Explanation](https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md)
+
+---
+ci-tools
+tools/ci-scripts/run_eslint.sh
+```bash
+set -o pipefail
+rm -rf testreports
+mkdir testreports
+touch testreports/eslint.xml
+cd web/static/js/app
+npm install
+npm run lint-for-ci | tee ../../../../testreports/eslint.xml || RET=$?
+exit $RET
+```
+```app.yaml
+test_handlers:
+- name: eslint
+  type: eslint
+  test_script: /tools/ci-scripts/run_eslint.sh
+  enable_pr: True
+
+```
+
