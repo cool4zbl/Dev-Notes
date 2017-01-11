@@ -161,6 +161,27 @@ background-position: 0 50%;
 - [Can I Use text-size-adjust](http://caniuse.com/#search=text-size-adjust)
 - [text-size-adjust W3C Spec](https://drafts.csswg.org/css-size-adjust/#adjustment-control)
 
+- textarea / input `placeholder` 在文本框获得焦点的时候自动消失
+这里还是想着用强大的 CSS 解决
+```css
+/* do not group these rules */
+textarea::focus::-webkit-input-placeholder {
+  opactity: 0;
+}
+textarea::focus::-moz-input-placeholder {
+  opactity: 0;
+}
+textarea::focus::-ms-input-placeholder {
+  opactity: 0;
+}
+textarea::focus::placeholder {
+  opactity: 0;
+}
+```
+在获得焦点的时候，设置 placeholder 透明，可以达到设计师说的消失效果。
+这里要注意的是，这些规则只能放在最外面而不能被包裹；
+且根据浏览器前缀的不同，每条规则都要单独写出来，不然不能奏效。
+
 ---
 
 ---
