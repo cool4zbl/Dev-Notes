@@ -155,3 +155,7 @@ test_handlers:
 
 ```
 
+---
+- 如果当前文件夹下有 `package.json` ，里面有配置 `webpack` ，且 `npm install webpack` 过，
+那么在当前文件夹下 run `webpack` 会优先使用之前已经安装好的 `webpack` 版本，
+`npm i -g webpack` 安装好的 `webpack` 会先被屏蔽。
