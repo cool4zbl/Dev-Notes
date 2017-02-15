@@ -91,7 +91,10 @@
 
   那么这里就出现了两个关键的概念：*Runner* 及 *AST*。
 
-  - Runner，个人觉得就是 `jscodeshift -t <transform.js> /to/file/path` 的 `transform.js`，也就是说，你打算使用 jscodeshift 对源文件进行何种变换，这里面就是变换函数；
+  - Runner，
+  - > A runner/worker feature that can apply transforms to thousands of files in parallel.
+		  -- [CPojer Effective JavaScript Codemods](https://medium.com/@cpojer/effective-javascript-codemods-5a6686bb46fb#.sg03sd9eq)
+	
   - AST，Abstract Syntax Tree，抽象语法分析树。
 
   为了更好理解以上概念，先来看一下之前运行 jscodeshift 命令过程。
@@ -119,8 +122,6 @@
 
   > 计算机科学中，抽象语法树（abstract syntax tree 或者缩写为 AST），或者语法树（syntax tree），是源代码的抽象语法结构的树状表现形式，这里特指编程语言的源代码。树上的每个节点都表示源代码中的一种结构。之所以说语法是「抽象」的，是因为这里的语法并不会表示出真实语法中出现的每个细节。
 
-  所以每种语言的 AST 都是不同的。有专门的 Parser 来生成 AST。
-
   这么说其实还是有点抽象，我们先打开 [wiki](https://en.wikipedia.org/wiki/Abstract_syntax_tree) 看到 wikipedia 这个图，
 
   ![image](https://media.github.intra.douban.com/user/62/files/9d7500be-f370-11e6-972f-f5ede1c448f8)
@@ -133,8 +134,9 @@
 
   ![image](https://media.github.intra.douban.com/user/62/files/758a6076-f370-11e6-97e4-f6152c3814bf)
 
-
   看上去特别复杂。注意那些蓝色字体 `File`, `Programme`,` ExpressionStatement`,` Identifier`… 这些都是 AST Nodes，其他的都是和这个 Node 相关的数据。
+
+  根据前文可以知道，每种语言的 AST 都是不同的。有专门的 Parser 来生成 AST。
 
   关于 [Parser](https://en.wikipedia.org/wiki/Parsing#Parser) 又是一门很深的学问了。
   在 ASTExplorer.net 上可以看到有很多 parser，比较著名的有 [Esprima(jQuery)](https://github.com/jquery/esprima/blob/master/src/parser.ts)，Uglify-JS, Babylon(Babel), Acorn(Tern / Webpack), 及 jscodeshift 使用的 recast. 虽然有很多 Parser，但是基本上，一个 parser 的结构都差不多，对源代码进行词法分析，生成 Tokens，对 Tokens 进行语法分析，然后生成 AST。
@@ -194,6 +196,8 @@
   ---
 
   ## DEMO TIME!
+### Write a codemod transform
+	`jscodeshift -t <transform.js> /to/file/path` 的 `transform.js`，也就是说，你打算使用 jscodeshift 对源文件进行何种变换，这里面就是变换函数；
 
   #### Problem:
 
@@ -267,6 +271,7 @@
   - [Effective JavaScript Codemods](https://medium.com/@cpojer/effective-javascript-codemods-5a6686bb46fb#.s5kdne4xl)
   - [Codemod Interview](https://survivejs.com/blog/codemod-interview/)
   - [How to write a codemod](https://vramana.github.io/blog/2015/12/21/codemod-tutorial/) 结合 CPojer’s Talk, 这个虽很长但很有用！
+  - [Understanding Babel Plugin](https://www.sitepoint.com/understanding-asts-building-babel-plugin/)
   - [AST 在美团的应用](http://tech.meituan.com/abstract-syntax-tree.html)
   - [imweb](http://imweb.io/topic/57b13b4f93d9938132cc8dfd)
 
