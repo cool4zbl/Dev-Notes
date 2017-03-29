@@ -202,9 +202,6 @@ test_handlers:
 - `tree -I node_modules\|js-codemod\|react-codemod` bash 里面使用正则 pattern 需要将 `|`转义。
 
 
-
-——
-
 - 之前的页面不是特别多，只有「注册」「忘记密码」，后来出现了「第三方登录完善资料」、「绑定/解绑手机号」、「绑定/解绑微信号」，每个功能都基本有两三个 page，现在所有页面都是 webpack 打包成了一个文件，之前没有用 ReactDOM 的时候大概 140Kb，使用了 ReactDOM 以后达到了 340Kb 左右，是可以接受的样子，不过还是有优化空间；
 - 比如可以针对每个功能，进行页面的拆分打包，独立出每个功能需要用的 JS，这样首屏加载更快。动态加载 JS。
 - From PR: https://github.intra.douban.com/accounts/accounts/pull/603
@@ -392,3 +389,11 @@ FM 解决方案：https://github.intra.douban.com/FM/fm/blob/master/fm/view/util
 什么时候可以成为创造产品的一员呢？
 
 之前就是想成为一名「大前端」，所以工程化的东西还挺好玩的吧。
+
+
+
+------
+
+http://andrewhfarmer.com/react-ajax-best-practices/
+
+React Container + Present Component Interaction with backend.
