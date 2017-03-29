@@ -397,3 +397,65 @@ FM 解决方案：https://github.intra.douban.com/FM/fm/blob/master/fm/view/util
 http://andrewhfarmer.com/react-ajax-best-practices/
 
 React Container + Present Component Interaction with backend.
+
+
+
+------
+
+不使用 `Mobx` `Redux` 等 React Store 框架，自己造一个小的 store
+
+例如显示全局图形验证码的 `CaptchaStore.js`
+
+```javascript
+// `/src/store/CaptchaStore.js`
+const EventEmitter = require('event').EventEmitter
+const emitter = new EventEmitter()
+
+let captchaObj = {
+  captcha_id: '',
+  captcha_image_url: '',
+  captcha_signature_sample: '',
+  captcha_solution: ''
+}
+
+module.exports = {
+  getCaptcha: () => captchaObj,
+  subscribe: (cb) => {
+    emitter.on('update', cb)
+  },
+  unsubscribe: (cb) => {
+    emitter.removeListerner('update', cb)
+  },
+  updateCaptcha: (newCaptcha) => {
+    captchaObj = Object.assign({}, catpchaObj, newCaptcha)
+    emitter.emit('update')
+  }
+}
+
+// Component.js
+import React from 'react'
+import CaptchaStore from '/store/CaptchaStore'
+export default class Component extends React.component {
+  constructor() {
+    super()
+    this.state = {
+      captcha: CaptchaStore.getCaptcha()
+    }
+    // this.autobind()
+  }
+  updateCaptcha() {
+    this.setState({
+      captcha: CaptchaStore.getCaptcha()
+    })
+  }
+  componentWillMount() {
+    CaptchaStore.subscribe(this.updateCaptcha.bind(this))
+  }
+  componentWillUnmount() {
+    CaptchaStore.unsubscribe(this.updateCaptcha.bind(this))
+  }
+}
+
+
+```
+
