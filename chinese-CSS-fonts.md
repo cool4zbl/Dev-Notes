@@ -36,9 +36,16 @@
 
 
 
----
+------
 
 
+  <link rel="preload"> 和 <link rel="prefetch"> 的缓存行为
 
-（http://www.duanshishi.com/ TensorFlow 应用。
+[Chrome 有四种缓存](): HTTP 缓存，内存缓存，Service Worker 缓存和 Push 缓存。preload 和 prefetch 都被存储在 **HTTP 缓存中**。
+
+当一个资源被 **preload 或者 prefetch** 获取后，它可以从 HTTP 缓存移动至渲染器的内存缓存中。如果资源可以被缓存（比如说存在有效的[cache-control]() 和 max-age），它被存储在 HTTP 缓存中可以被**现在或将来的任务使用**，如果资源不能被缓存在 HTTP 缓存中，作为代替，它被放在内存缓存中直到被使用。
+
+ preload 还有哪些更广泛的应用？
+
+**根据 HTTPArchive，很多网站应用 <link rel=”preload”> 来加载字体，包括 Teen Vogue 和以上提到的其他网站：**
 
