@@ -172,7 +172,7 @@ test_handlers:
 
 - `import x from 'xxx' -> static` `require.ensure([], require => { cb(null, module)}) -> dynamic`
 
-- Named chunks: https://github.com/webpack/webpack/tree/webpack-1/examples/named-chunks   
+- Named chunks: https://github.com/webpack/webpack/tree/webpack-1/examples/named-chunks
 
 - 使用 JSX 语法可以参考官方文档 https://github.com/ReactTraining/react-router/blob/1.0.x/docs/API.md
 
@@ -358,7 +358,7 @@ test_handlers:
 同是用 pre 测试，
 
 - 拆分前 JS 加载情况：
-  master pre: 
+  master pre:
   https://dae-pre113.dapps.douban.com/app/register#/?_k=x5uqd1![image](https://media.github.intra.douban.com/user/62/files/98862f18-ec97-11e6-9cb1-1250eed5dc48)
 
 

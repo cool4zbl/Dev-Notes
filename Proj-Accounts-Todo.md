@@ -1,12 +1,4 @@
-
-关于 vim 文本编辑。
-就把编辑的文字想象成一个二维矩阵空间，横向一行是 X 轴，纵向是 Y 轴，所以只需要解决，如何在横着移动，和竖着移动就好。这两个方向组织起了 Vim 一些行列操作的大思想。
-
-===
-
-
-
-### Accounts TODOs： 
+### Accounts TODOs：
 
 - `http://alexkuz.github.io/webpack-chart/` 优化性能 charts
 - `NODE_ENV=production webpack --display-modules --sort-modules-by size —config ./makewebpackconfig.js`， 然后发现最需要优化的前三是 `get_captcha_code.jsx`(14kB) `page/register/index.jsx`(12.2kB) `page/bind/bind_phone.jsx` (10.7kB)

@@ -1,4 +1,4 @@
-### Fix a sub-sub-module bug 
+### Fix a sub-sub-module bug
 
 #### why `grunt init` fails when installing Ghost in dev mode
 
@@ -74,7 +74,7 @@ https://github.com/rwjblue/git-repo-info/pull/26/files#diff-168726dbe96b3ce427e7
 
 
 
-#### About `commondir` 
+#### About `commondir`
 
 https://git-scm.com/docs/gitrepository-layout
 
