@@ -1,20 +1,30 @@
-# Notes of 10 React mini-patterns and Project Creator
+---
+
+title: Notes of 10 React mini-patterns and Project Creator
+
+---
 
 
-很早之前就一直在读的一篇文章，[10 个React Mini 设计模式](https://hackernoon.com/10-react-mini-patterns-c1da92f068c5)，
-一边做 `Creator` 项目，也一边终于把它精读完。
+
+很早之前就一直在读的一篇文章，[10 个React Mini 设计模式](https://hackernoon.com/10-react-mini-patterns-c1da92f068c5)，一边做 `Creator` 项目，也一边终于把它精读完。
+
 结合自己的开发时候的项目经验，做了点笔记。
-`Creator` 项目是一个多端（Web + Mobile）React SPA，且有一些表单填写和复杂的交互组件，自己单独封装了一个很简单的基于事件的 `Store`，开发过程中收获很大，这些细节之后可以细说。
 
-原文作者说你是不是天天写 React, 写着写着发现自己可能经常用来实现需求的，也总是那么几个方法，往大了讲其实就是开发中的 **设计模式**。但是这里我们称为 **Mini Patterns**。
+`Creator` 项目是一个多端（Web + Mobile）React SPA，且有一些表单填写和复杂的交互组件。
 
-## #1 Sending data down and up
+~~自己单独封装了一个很简单的基于 Node `EventEmitter` 的 `Store`，开发过程中收获很大，这些细节之后可以细说。~~ 产品那边后来又加了「置顶」功能，类似双向数据通信的 `EventEmitter` 逻辑有点太乱了，所以还是狠心花时间升级成了 `Redux` + `Immutable.js` + `Normalizr` 技术栈，果然省心很多。
+
+原文作者说你是不是天天写 React, 写着写着发现自己可能经常用来实现需求的，也总是那么几个方法，往大了讲其实就是开发中的 **设计模式**。在这里我们称为 **Mini Patterns**。
+
+
+
+## #1 Sending data down and up 数据流
 
 ![Data-flow](https://cdn-images-1.medium.com/max/2000/1*J5XOQh2WKIl0NFTAMvcVbQ.png)
 
-- React 数据流
-- ParentComponent  通过 `props` 传给 ChildComponent 值
-- ChildComponent 通过 `props` 传过来的一些 function 回调 parent 的一些方法。
+- 这里是父子通信的 React 数据流，ParentComponent  通过 `props` 传给 ChildComponent 值，ChildComponent 通过 `props` 传过来的一些 function 回调 parent 的一些方法。
+- 组件间通信，还可以使用事件发布/订阅模式，及 `this.context` 黑魔法，或者第三方解决方案（Redux / MobX）
+
 
 
 
@@ -28,17 +38,13 @@
 
 - 如果需要有大量 user inputs，最好是自己实现一套相关组件。
 
-- 所以在 Creator 中基本自己实现了 `input`，`Select` 等组件。需求简单所以实现得也是很简单。所以其实 `Select` 组件仍然需要优化，比如自定义 `option` 样式，多选等等。
+- 所以在 Creator 中基本自己实现了 `input`，`Select` 等组件。需求简单所以实现得也是很简单，其实 `Select` 组件仍然需要优化，比如自定义 `option` 样式，多选等等。
 
-- Inputs should return a value via an `onChange` method, not a JavaScript `Event` instance, shouldn’t they?
-
-- Input 最好通过 `onChange` 返回一个值，而不是通过一个 JS `Event` 实例。
-
-- You can go a step further and ensure that the data type returned in `onChange` matches the type passed in. If the `typeof props.value` is `number`, then convert `e.target.value` back to a number before sending the data out again.
+- Input 最好通过 React 合成事件 `onChange` 返回一个值，而不是通过一个原生 JS `Event` 实例。React  基于 Virtual DOM 实现了一个 `SyntheticEvent` （合成事件）层，我们所定义的事件处理器会收到一个 `SyntheticEvent` 对象的实例，这个实例和原生的浏览器事件拥有一样的接口。而如果要访问原生事件对象的话，需要使用 `nativeEvent` 属性。React 官方建议说这会造成一定的性能问题。
 
 - 在返回 `onChange` 的值之前确保一下是不是和输入的类型匹配。比如 `typeof props.value === 'number'` 的话，在返回 `e.target.value` 前需要确保也是数字类型。
 
-- 这里项目中有个选择证件类型的 `Select`，与后端默认 身份证 = 0 / 护照 = 1，但是在 `e.target.value` 时候忘记 convert 了。所以还是需要记得判断下 `option` 的值类型。
+- 这里项目中有个选择证件类型的 `Select` 组件，与后端默认 身份证 = 0 / 护照 = 1，但是在 `e.target.value` 时候忘记 convert 了。所以还是需要记得判断下 `option` 的值类型。
 
   ```javascript
   let {name, value} = e.target
@@ -47,21 +53,17 @@
 
   ​
 
-- A set of radio buttons is functionally the same thing as a `<select>`, right? It’s messed up to treat them in a completely different manner when the only difference is the UI. Maybe for your app it makes sense to have a single `<PickOneFromMany />` component and pass either `ui="radio"` or `ui="dropDown"`.
-
-- 一堆单选按钮在功能上和一个 `<select>` 组件是一样的。没有必要把它们完全不一样地来对待，因为它们仅仅是 UI 不一样。其实可能只需要一个 `<PickOneFromMany />` 组件就好，通过 `ui="radio"` 或者`ui="dropdown"` 来区分。
+- 一堆单选按钮在功能上和一个 `<select>` 组件是一样的。没有必要把它们完全不一样地来对待，因为它们仅仅是 UI 不一样。其实可能只需要一个 `<PickOneFromMany />` 组件就好，通过 `ui="radio"` 或者`ui="dropdown"` 来区分功能。
 
 - **React Form 与 HTML 的不同**
 
-- `value/checked` 设置后用户输入无效，相当于设置了 value -> controlled component.
+  - `value/checked` 设置后用户输入无效，相当于设置了 value，即变成了受控组件 controlled component.
+  - `textarea` 的值要设置在 value 属性
+  - `select` 的`value` 属性可以是数组，不建议使用 `option` 的 `selected` 属性
+  - `input/textarea` 的 `onChange` 每次输入都会触发，即使不失去焦点
+  - `radio/checkbox`  点击后触发 `onChange`
 
-- `textarea` 的值要设置在 value 属性
-
-- `select` 的`value` 属性可以是数组，不建议使用 `option` 的 `selected` 属性
-
-- `input/textarea` 的 `onChange` 每次输入都会触发，即使不失去焦点
-
-- `radio/checkbox`  点击后触发 `onChange
+  ​
 
 
 
@@ -73,7 +75,7 @@
 >
 > So, instead you can create a little module that gives an incrementing ID, and use that in an `Input` component like so:
 
-```jsx
+```javascript
 // Input Component
 class Input extends React.Component {
   constructor(props) {
@@ -114,8 +116,9 @@ export const getNextId = () => {
 }
 ```
 
-- 这里大概是自动给 `label`/`input` 加上一对一的 id.
-- Creator 中好像没有这样使用。
+- 用户体验相关，自动给表单的 `label`/`input` 加上一对一的 id. 
+- `getNextId()` 创建了一个闭包来返回。
+
 
 
 
@@ -141,7 +144,7 @@ Three distinct ways to control the CSS applied to a component.
 
    Creator Project:
 
-   ```jsx
+   ```javascript
    Button.propTypes = {
      size: PropTypes.oneOf([
        'sm',
@@ -157,19 +160,16 @@ Three distinct ways to control the CSS applied to a component.
        ])
    }
 
-
    // use className to control styles
-
-     const cls = classNames('btn', {
-       [`${prefixCls}-btn`]: true,
-       [`${prefixCls}-btn-${size}`]: !!size,
-       [`${prefixCls}-btn-${status}`]: !!status,
-       [`${prefixCls}-btn-${type}`]: !!type
-     }, props.className)
-
+    const cls = classNames('btn', {
+      [`${prefixCls}-btn`]: true,
+      [`${prefixCls}-btn-${size}`]: !!size,
+      [`${prefixCls}-btn-${status}`]: !!status,
+      [`${prefixCls}-btn-${type}`]: !!type
+    }, props.className)
    ```
 
-   ​
+
 
 3. Setting values.
 
@@ -177,11 +177,14 @@ Three distinct ways to control the CSS applied to a component.
 
    `<Icon width="25" height="25" type="search" />`
 
-   ### An example
+   ​
+
+
+ **举个栗子**
 
    ![creating-a-link-component](https://cdn-images-1.medium.com/max/800/1*Kx1jOQONhFZPnGe72Fd4tQ.png)
 
-   ```jsx
+   ```javascript
    // Link.js
    const Link = (props) => {
      let className = `link link--${props.theme}-theme`;
@@ -210,7 +213,6 @@ Three distinct ways to control the CSS applied to a component.
      theme: 'default',
      underline: false,
    };
-
    ```
 
    ```scss
@@ -242,7 +244,7 @@ Three distinct ways to control the CSS applied to a component.
    }
    ```
 
-   ​
+   
 
    > JavaScript is easy, but with CSS you pay for your sins — once you’ve started a mess, it’s not easy to back out of.
    >
@@ -268,9 +270,10 @@ Three distinct ways to control the CSS applied to a component.
 
    React 的话，就好办了。
 
-   - 控制组件的 classes ；
+- 控制组件的 classes ；
    - 移掉所有的全局 resets 然后都把它们扔到 Button.scss 中；
    - 可以用 `all: unset` 去掉所有浏览器初始样式。
+
 
 
 
@@ -312,7 +315,9 @@ If you replace the keys `home`, `about` and `user` with `/`, `/about`, and `/use
 
 (Future post idea: removing `react-router`.)
 
-这里 Creator 中还是使用了 `react-router` 作为 SPA 路由。
+这里 Creator 中还是使用了 `react-router` 作为 SPA 路由。而且用的是 `HashRouter`，这样的话一个个路径都可以由 `location.hash` 无刷新跳转。
+
+个人觉得这是 `react-router` + `webpack` 两者结合来解决打包路径问题的最佳方案。
 
 ```javascript
 // Route.jsx
@@ -473,7 +478,6 @@ myAppInstance.doSth() // The ref returned from ReactDOM.render
 - *Note:* Note that when the referenced component is unmounted and whenever the ref changes, the old ref will be called with `null` as an argument. This prevents memory leaks in the case that the instance is stored, as in the first example. Also note that when writing refs with inline function expressions as in the examples here, React sees a different function object each time so on every update, ref will be called with `null` immediately before it's called with the component instance.
 - 为防止内存泄露，当引用组件被卸载或者 `ref` 改变的时候，`ref = null`.
 - 如果用 inline function，因为每次都是一个不同的 function object，所以当组件每次更新的时候，`ref` 都会被设置为 `null` 直到组件实例再次调用它。
-
 
 
 #### The ref String Attribute *legacy
@@ -695,3 +699,7 @@ req.keys().forEach((key) => {
 ```
 
 Creator 中因为用的 `create-react-app` CLI，无法自己配置 Webpack，所以并没有用到...
+
+
+
+以上就是一些含金量很高的小技巧和迷你设计模式，最好是开发的时候参照这些要点，能用上就用上，熟能生巧。
