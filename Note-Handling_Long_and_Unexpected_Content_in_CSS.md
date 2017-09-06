@@ -268,3 +268,38 @@ Testing the layouts with all types of content until something breaks.
  I like to use Heydon Pickering's [forceFeed.js](https://github.com/Heydon/forceFeed) for adding content randomly to a specific component.
 
 对需要的组件自动填充各种极端情况测试内容！
+
+
+
+---
+
+
+
+**思考：**
+
+最近做的 SNS people_portflio 会出现以下情况。
+
+![white-space-bug](../../Desktop/Code-Screenshots-代码截图/white-space-bug.png)
+
+原因是 `title` `info` 等虽然设置了 `ellipsis`，但是没有设置最大宽度，所以会导致宽度超过父元素的最大宽度。
+
+workaround: 给它们都设置一个固定的最大宽度。不知道还有没有更好的办法。
+
+![white-space-fixed](../../Desktop/Code-Screenshots-代码截图/white-space-fixed.png)
+
+```css
+.title, .info .more {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  max-width: $itemW;  // 在这里写死一个最大宽度
+}
+```
+
+Ref:  [Clamp.js](https://github.com/josephschmitt/Clamp.js/blob/master/clamp.js)
+
+一个把对应元素限定在某个具体数值行数的库。
+
+待继续研究...

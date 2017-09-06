@@ -17,52 +17,7 @@
   - 最好是在请求的时候，再动态取 cookie，否则有可能出现服务端没来得及种 cookie 的情况。
 
 
----
 
-Install vim-UltiSnips
-
-反正，自己编译的 Vim 不行。
-
-可能是调用 Python 接口的方法不太对。
-
-Finally, `brew install vim` solved.
-
-```shell
-Error detected while processing /Users/zhangbinliu/.vim/bundle/ultisnips/autoload/UltiSnips.vim:
-line  226:
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-ImportError: No module named os
-line  229:
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-  File "C:\Documents and Settings\username\vimfiles\bundle\UltiSnips-2.2\pl
-ugin\UltiSnips\__init__.py", line 4, in <module>
-    from functools import wraps
-ImportError: No module named functools
-line  230:
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-NameError: name 'UltiSnips_Manager' is not defined
-line  231:
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-NameError: name 'UltiSnips_Manager' is not defined
-line  232:
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
-NameError: name 'UltiSnips_Manager' is not defined
-```
-
-
-
----
-
-对于 `webpack` 打包好的文件，
-在 开发的时候，如果只是改动了一小部分，
-`Git` 相关可以暂时忽略掉 `register.js` `register.js.map` 相关的修改。
-
-否则，`git rebase` 简直...
 
 ---
 
@@ -73,22 +28,18 @@ NameError: name 'UltiSnips_Manager' is not defined
 
 ---
 
-连字符相关：
-
-- CSS className
-  - 默认`-`， e.g.: `flag-wrapper`；
-  - `_` ，如果是可能需要用到 Python 和 JS 操作的，使用`_` ，e.g.:`vote_useful / vote_useless`
-- JS Variable name:
-  - 默认 `camelCase`
-
-
----
-
 `captcha_code_img` 前端 md5 验证
 
 
 
 ---
+
+`window.postMessage()`
+
+- Parent -> Child.  childwindow.postMessage('haaha', 'http://child.com'); window.addEventListener('message', handler, false)
+- Child -> Parent parentWindow.postMessage('haha', 'http://parent.com')
+
+-----
 
 `React` 事件 `event.preventDefault()` 达到了类似冒泡的结果
 
@@ -159,7 +110,7 @@ test_handlers:
 
 - 年前到 2017.02.09 做了下 动态路由和代码拆分，碰到了很多前端工程性的问题，发现自己特别爱研究这类问题，可能是个工具控吧。
 
-  ​
+  [require AMD vs require.ensure](http://blog.csdn.net/zhbhun/article/details/46826129)
 
 - webpack code-splitting http://webpack.github.io/docs/code-splitting.html
 
@@ -199,7 +150,7 @@ test_handlers:
 
 - https://segmentfault.com/a/1190000006063554#articleHeader16
 
-- `tree -I node_modules\|js-codemod\|react-codemod` bash 里面使用正则 pattern 需要将 `|`转义。
+- **`tree -I node_modules\|js-codemod\|react-codemod` bash 里面使用正则 pattern 需要将 `|`转义**。
 
 
 - 之前的页面不是特别多，只有「注册」「忘记密码」，后来出现了「第三方登录完善资料」、「绑定/解绑手机号」、「绑定/解绑微信号」，每个功能都基本有两三个 page，现在所有页面都是 webpack 打包成了一个文件，之前没有用 ReactDOM 的时候大概 140Kb，使用了 ReactDOM 以后达到了 340Kb 左右，是可以接受的样子，不过还是有优化空间；
@@ -456,6 +407,14 @@ export default class Component extends React.component {
   }
 }
 
-
 ```
 
+---
+
+关于 版本匹配
+
+`let version = [m1, m2, m3]`
+
+可能需要用到数组、字符串相关操作 https://ponyfoo.com/articles/fun-with-native-arrays#computing-with-reduce-reduceright
+
+可以结合 creator ，总结三个值按顺序比大小的方法。
